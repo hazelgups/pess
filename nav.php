@@ -1,7 +1,9 @@
-<h1>Police Emergency Service System</h1>
-<nav>
-    <a href="logcall.php">Log Call</a>
-    <a href="Update.php">Update</a>
-    <a href="#">Report</a>
-    <a href="#">History</a>
+<h1 style="color:powderblue;font-family:verdana">Police Emergency Service System</h1>
+<nav id="HeaderStyle">
+	<ul>
+		<li><a href="logcall.php"><span style="color:powderblue;font-family:helvetica">Log Call</span></a></li>
+		<li><a href="Update.php"><span style="color:powderblue;font-family:helvetica">Update</span></a></li>
+		<li><a href="#"><span style="color:powderblue;font-family:helvetica">Report</span></a></li>
+		<li><a href="#"><span style="color:powderblue;font-family:helvetica">History</span></a></li>
+	</ul>
   </nav>

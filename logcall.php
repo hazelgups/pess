@@ -5,6 +5,8 @@
 <head>
 <meta charset="utf-8">
 <title>Police Emergency Service System</title>
+<link href="header_style.css" rel="stylesheet" type="text/css">
+<link href="content_style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 function validationForm()
 {	
@@ -21,9 +23,9 @@ function validationForm()
 <body>
 <form name="frmLogCall" method="post"
 	onSubmit="return validationForm()" action="dispatch.php">
-<table>
+<table class="ContentStyle">
 	<tr>
-		<td colspan="2">Log call Panel</td>
+		<td style="font-family:verdana;" colspan="2">Log call Panel</td>
 	</tr>
 	
 	<tr>
@@ -53,19 +55,19 @@ function validationForm()
 		
 		$conn->close();
 		?>
-		<td>Caller's Name :</td>
+		<td style="color:#25919c;font-family:verdana;">Caller's Name :</td>
 		<td><input type="text" name="callerName" id="callerName"></td>
 	</tr>
 	<tr>
-		<td>Contact No :</td>
+		<td style="color:#25919c;font-family:verdana;">Contact No :</td>
 		<td><input type="text" name="contactNo" id="contactNo"></td>
 	</tr>
 	<tr>
-		<td>Location :</td>
+		<td style="color:#25919c;font-family:verdana;">Location :</td>
 		<td><input type="text" name="location" id="location"></td>
 	</tr>
 	<tr>
-		<td>Incident Type :</td>
+		<td style="color:#25919c;font-family:verdana;">Incident Type :</td>
 		<td>
 		<select name="incidentType" id="incidentType">
 			<?php // populate a combo box with $incidentType
@@ -81,16 +83,16 @@ function validationForm()
 		</td>
 	</tr>
 	<tr>
-		<td>Description :</td>
+		<td style="color:#25919c;font-family:verdana;">Description :</td>
 		<td><textarea name="incidentDesc" id="incidentDesc" cols="45"
 				rows="5"></textarea>
 		</td>
 	</tr>
 	<tr>
-		<td><input type="reset" name="btnCancel" id="btnCancel"
+		<td><input type="reset" style="color:#25919c;font-family:verdana;" name="btnCancel" id="btnCancel"
 			value="Reset">
 		</td>
-		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit"
+		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" style="color:#25919c;font-family:verdana;"
 			name="btnProcessCall" id="btnProcessCall" value="Process Call...">
 		</td>
 	</tr>

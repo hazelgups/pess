@@ -101,36 +101,36 @@ require_once 'db.php';
 	
 <!-- display the incident information passed from logcall.php -->
 <form name="formal" method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?> ">
-<table>
+<table class="ContentStyle">
 	<tr>
-		<td colspan="2">Incident Detail</td>
+		<td colspan="2" style="font-family:verdana;">Incident Detail</td>
 	</tr>
 	<tr>
-		<td>Caller's Name :</td>
+		<td style="color:#25919c;font-family:verdana;">Caller's Name :</td>
 		<td><?php echo $_POST['callerName'] ?>
 			<input type="hidden" name="callerName" id="callerName"
 			value="<?php echo $_POST['callerName'] ?>"></td>
 	</tr>
 	<tr>
-		<td>Contact No :</td>
+		<td style="color:#25919c;font-family:verdana;">Contact No :</td>
 		<td><?php echo $_POST['contactNo'] ?>
 			<input type="hidden" name="contactNo" id="contactNo"
 			value="<?php echo $_POST['contactNo'] ?>"></td>
 	</tr>
 	<tr>
-		<td>Location :</td>
+		<td style="color:#25919c;font-family:verdana;">Location :</td>
 		<td><?php echo $_POST['location'] ?>
 			<input type="hidden" name="location" id="location"
 			value="<?php echo $_POST['location'] ?>"></td>
 	</tr>
 	<tr>
-		<td>Incident Type :</td>
+		<td style="color:#25919c;font-family:verdana;">Incident Type :</td>
 		<td><?php echo $_POST['incidentType'] ?>
 			<input type="hidden" name="incidentType" id="incidentType"
 			value="<?php echo $_POST['incidentType'] ?>"></td>
 	</tr>
 	<tr>
-		<td>Description :</td>
+		<td style="color:#25919c;font-family:verdana;">Description :</td>
 		<td><textarea name="incidentDesc" cols="45"
 			rows="5" readonly id="incidentDesc"><?php echo $_POST['incidentDesc']?>
 			</textarea>
@@ -142,9 +142,9 @@ require_once 'db.php';
 
 <br><br>
 <!-- populate table with patrol car data -->
-<table>
+<table class="ContentStyle">
 	<tr>
-		<td colspan="3">Dispatch Patrolcar Panel</td>
+		<td colspan="3" style="font-family:verdana;">Dispatch Patrolcar Panel</td>
 	</tr>
 	<?php
 		foreach($patrolcarArray as $key=>$value){
@@ -158,8 +158,8 @@ require_once 'db.php';
 	<?php }
 	?>
 	<tr>
-		<td><input type="reset" name="btnCancel" id="btnCancel" value="Reset"></td>
-		<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit"
+		<td><input type="reset" style="color:#25919c;font-family:verdana;" name="btnCancel" id="btnCancel" value="Reset"></td>
+		<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" style="color:#25919c;font-family:verdana;"
 		name="btnDispatch" id="btnDispatch" value="Dispatch">
 		</td>
 	</tr>

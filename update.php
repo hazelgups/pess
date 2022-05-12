@@ -1,3 +1,12 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Police Emergency Service System</title>
+<link href="header_style.css" rel="stylesheet" type="text/css">
+<link href="content_style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
 <!-- Part 1 -->
 <?php require_once 'nav.php'; ?>
 <br><br>
@@ -10,14 +19,13 @@ if (!isset($_POST["btnSearch"])){
 	<table class="ContentStyle">
 		<tr></tr>
 		<tr>
-			<td>Patrol Car ID :</td>
+			<td style="color:#25919c;font-family:verdana;">Patrol Car ID :</td>
 			<td><input type="text" name="patrolCarId" id="patrolCarId"></td>
-			<td><input type="submit" name="btnSearch" id="btnSearch" value="Search"></td>
+			<td><input type="submit" style="color:#25919c;font-family:verdana;" name="btnSearch" id="btnSearch" value="Search"></td>
 		</tr>
 	</table>
 </form>
-<?php
-} ?>
+
 
 <!-- Part 2 -->
 <?php
@@ -39,7 +47,7 @@ else
 	$result = $conn->query($sql);
 	
 	// if the patrol car does not exist, redirect back to update.php
-	if (result->num_rows == 0) {
+	if ($result->num_rows == 0) {
 		?>
 			<script type="text/javascript">window.location="./update.php";</script>
 	<?php }
@@ -56,23 +64,28 @@ else
 		while ($row = $result->fetch_assoc()) {
 			$patrolCarStatusArray[$row['patrolcar_status_id']] = $row['patrolcar_status_desc'];
 		}
+	}
+			while ($row = $result->fetch_assoc()) {
+			$patrolCarStatusArray[$row['patrolcar_status_id']] = $row['patrolcar_status_desc'];
+		}
 		
 	$conn->close();
+	
 ?>
 <!-- display a form for operator to update status of patrol car -->
 <form name="form2" method="post"
 	action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?> ">
-	<table>
+	<table class="ContentStyle">
 		<tr></tr>
 		<tr>
-			<td>ID :</td>
+			<td style="color:#25919c;font-family:verdana;">ID :</td>
 			<td><?php echo $patrolCarId ?>
 				<input type="hidden" name="patrolCarId" id="patrolCarId"
 				value="<?php echo $patrolCarId ?>">
 			</td>
 		</tr>
 		<tr>
-			<td>Status :</td>
+			<td style="color:#25919c;font-family:verdana;">Status :</td>
 			<td><select name="patrolCarStatus" id="patrolCarStatus">
 				<?php foreach( $patrolCarStatusArray as $key => $value){ ?>
 				<option value="<?php echo $key ?>"
@@ -85,8 +98,8 @@ else
 			</select></td>
 		</tr>
 		<tr>
-			<td><input type="reset" name="btnCancel" id="btnCancel" value="Reset"></td>
-			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="btnUpdate"
+			<td><input type="reset" style="color:#25919c;font-family:verdana;" name="btnCancel" id="btnCancel" value="Reset"></td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" style="color:#25919c;font-family:verdana;" name="btnUpdate"
 			id="btnUpdate" value="Update">
 			</td>
 		</tr>
@@ -94,6 +107,7 @@ else
 </form>
 <!-- Part 3 -->
 <?php 
+}
 /* if postback via clicking Update button */
 if (isset($_POST["btnUpdate"])) {
 	require_once 'db.php';
@@ -115,4 +129,29 @@ if (isset($_POST["btnUpdate"])) {
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
 	}
-	/*else if patrol car status is FREE (3) then capture the time of completion */ else if 
+	/*else if patrol car status is FREE (3) then capture the time of completion */
+	else if ($_POST["patrolCarStatus"] == '3'){
+		/* First, retrieve the incident ID from dispatch table handled by that patrol car */
+		$sql = "SELECT incident_id FROM dispatch WHERE time_completed is NULL AND patrolcar_id = '".$_POST['patrolCarId']."'";
+		$result = $conn->query($sql);
+		if ($result->num_rows > 0) {
+			while ($row = $result->fetch_assoc()) {
+				$incidentId = $row['incident_id'];
+			}
+		}
+		// next update dispatch table
+		$sql = "UPDATE dispatch SET time_completed = NOW() WHERE time_completed is NULL AND patrolcar_id = '".$_POST['patrolCarId']."'";
+		if ($conn->query($sql)===FALSE) {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+		/* update incident table to completed (3) all patrol car attended to it are FREE now */
+		$sql = "UPDATE incident SET incident_status_id = '3' WHERE incident_id = '$incidentId' AND NOT EXISTS (SELECT * FROM dispatch WHERE time_completed IS NULL AND incident_id = '$incidentId')";
+		if ($conn->query($sql)===FALSE) {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+	}
+	$conn->close();
+	?>
+<script type="text/javascript">window.location="./logcall.php";</script>
+<?php } ?>
+</body>
